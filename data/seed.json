@@ -1,0 +1,95 @@
+{
+  "communities": [
+    {
+      "id": "product",
+      "name": "Mustang Product Club",
+      "platform": "Workspace",
+      "channel": "#general",
+      "accent": "#0f766e",
+      "channels": [
+        { "id": "general", "name": "general", "type": "public", "posting": "all", "topic": "Main discussion and member questions" },
+        { "id": "announcements", "name": "announcements", "type": "public", "posting": "moderators", "topic": "Official updates from club leadership" },
+        { "id": "events", "name": "events", "type": "public", "posting": "all", "topic": "Planning, logistics, and volunteer coordination" },
+        { "id": "leadership", "name": "leadership", "type": "private", "posting": "moderators", "topic": "Private officer planning and budget decisions" }
+      ],
+      "members": [
+        { "id": "product-1", "name": "Maya", "role": "Owner", "status": "Active" },
+        { "id": "product-2", "name": "Nina", "role": "Moderator", "status": "Active" },
+        { "id": "product-3", "name": "Ari", "role": "Member", "status": "Active" },
+        { "id": "product-4", "name": "Leo", "role": "Member", "status": "Active" },
+        { "id": "product-5", "name": "Sam", "role": "Member", "status": "Active" },
+        { "id": "product-6", "name": "Priya", "role": "Member", "status": "Active" },
+        { "id": "product-7", "name": "Ben", "role": "Member", "status": "Active" },
+        { "id": "product-8", "name": "Jules", "role": "Member", "status": "Active" }
+      ],
+      "invites": [
+        { "id": "product-invite-1", "email": "newmember@calpoly.edu", "role": "Member", "status": "Pending", "inviteCode": "product-a18c9f22", "createdAt": "2026-05-27T20:20:00.000Z" }
+      ],
+      "messages": [
+        { "id": "m1", "channelId": "announcements", "author": "Maya", "time": "9:04 AM", "text": "Reminder: Thursday's PM speaker panel is moving to Baker 114 because the library room is booked.", "tags": ["deadline"], "important": true, "createdAt": "2026-05-27T16:04:00.000Z" },
+        { "id": "m2", "channelId": "events", "author": "Leo", "time": "9:18 AM", "text": "Can someone update the flyer? The old one still says Library 202 and we already posted it in two channels.", "tags": ["question", "task"], "important": true, "createdAt": "2026-05-27T16:18:00.000Z" },
+        { "id": "m3", "channelId": "events", "author": "Ari", "time": "9:33 AM", "text": "I can update the flyer by 2 PM. Need the sponsor logo from the drive first.", "tags": ["task", "deadline", "risk"], "important": true, "createdAt": "2026-05-27T16:33:00.000Z" },
+        { "id": "m4", "channelId": "leadership", "author": "Nina", "time": "10:02 AM", "text": "Budget update: ASI approved $450, not $600. Final decision was pizza plus drinks, no merch this time.", "tags": ["decision"], "important": true, "createdAt": "2026-05-27T17:02:00.000Z" },
+        { "id": "m5", "channelId": "events", "author": "Sam", "time": "10:21 AM", "text": "I dropped the sponsor logo in Drive: /PM-Club/Spring-Panel/sponsor-logo.png", "tags": ["link"], "important": true, "createdAt": "2026-05-27T17:21:00.000Z" },
+        { "id": "m6", "channelId": "events", "author": "Priya", "time": "11:08 AM", "text": "Do we need volunteers at 5:15 or 5:30? I keep seeing both times.", "tags": ["question", "deadline"], "important": true, "createdAt": "2026-05-27T18:08:00.000Z" },
+        { "id": "m7", "channelId": "announcements", "author": "Maya", "time": "11:16 AM", "text": "Volunteer call time is 5:15. Doors open at 5:45. Panel starts at 6:00.", "tags": ["deadline"], "important": true, "createdAt": "2026-05-27T18:16:00.000Z" },
+        { "id": "m8", "channelId": "events", "author": "Ben", "time": "12:01 PM", "text": "We still need one person to handle check-in and one person to take photos for the recap post.", "tags": ["task", "risk"], "important": true, "createdAt": "2026-05-27T19:01:00.000Z" },
+        { "id": "m9", "channelId": "general", "author": "Jules", "time": "12:22 PM", "text": "For new members: tonight's meeting is a casual prep session. Bring laptop if you want feedback on your resume.", "tags": ["onboarding", "task"], "important": true, "createdAt": "2026-05-27T19:22:00.000Z" },
+        { "id": "m10", "channelId": "leadership", "author": "Nina", "time": "1:05 PM", "text": "Decision log: we are keeping the application workshop next Tuesday, but changing it to a resume review sprint.", "tags": ["decision", "deadline"], "important": true, "createdAt": "2026-05-27T20:05:00.000Z" }
+      ]
+    },
+    {
+      "id": "hackathon",
+      "name": "SLO Hacks Team",
+      "platform": "Hackathon team",
+      "channel": "Main chat",
+      "accent": "#2563eb",
+      "channels": [
+        { "id": "general", "name": "general", "type": "public", "posting": "all", "topic": "Team discussion and quick questions" },
+        { "id": "build", "name": "build", "type": "public", "posting": "all", "topic": "Engineering blockers and implementation updates" },
+        { "id": "pitch", "name": "pitch", "type": "public", "posting": "all", "topic": "Slides, story, and presentation prep" },
+        { "id": "strategy", "name": "strategy", "type": "private", "posting": "moderators", "topic": "Private scope and judging strategy" }
+      ],
+      "members": [
+        { "id": "hackathon-1", "name": "Eli", "role": "Owner", "status": "Active" },
+        { "id": "hackathon-2", "name": "Tara", "role": "Moderator", "status": "Active" },
+        { "id": "hackathon-3", "name": "Owen", "role": "Member", "status": "Active" },
+        { "id": "hackathon-4", "name": "Riya", "role": "Member", "status": "Active" }
+      ],
+      "invites": [],
+      "messages": [
+        { "id": "h1", "channelId": "strategy", "author": "Eli", "time": "8:41 PM", "text": "We are committing to the campus safety idea. The group liked the AI route planner better than the dining hall app.", "tags": ["decision"], "important": true, "createdAt": "2026-05-27T03:41:00.000Z" },
+        { "id": "h2", "channelId": "pitch", "author": "Tara", "time": "8:49 PM", "text": "Deadline check: pitch deck is due Sunday at noon, walkthrough video by 4 PM.", "tags": ["deadline"], "important": true, "createdAt": "2026-05-27T03:49:00.000Z" },
+        { "id": "h3", "channelId": "build", "author": "Owen", "time": "9:10 PM", "text": "Map API is rate limiting us. I can cache routes locally if we keep the presentation to three sample locations.", "tags": ["risk", "task"], "important": true, "createdAt": "2026-05-27T04:10:00.000Z" },
+        { "id": "h4", "channelId": "pitch", "author": "Riya", "time": "9:44 PM", "text": "I made the landing copy less dramatic. It now says safer night walks with friend-aware routing.", "tags": [], "important": false, "createdAt": "2026-05-27T04:44:00.000Z" },
+        { "id": "h5", "channelId": "strategy", "author": "Eli", "time": "10:17 PM", "text": "Final MVP scope: route risk score, buddy notification, and one admin dashboard. No live police scanner.", "tags": ["decision", "risk"], "important": true, "createdAt": "2026-05-27T05:17:00.000Z" }
+      ]
+    },
+    {
+      "id": "dorm",
+      "name": "Yak Hall Floor 3",
+      "platform": "Residence hall",
+      "channel": "Floor group",
+      "accent": "#b4234f",
+      "channels": [
+        { "id": "general", "name": "general", "type": "public", "posting": "all", "topic": "Floor-wide conversation" },
+        { "id": "alerts", "name": "alerts", "type": "public", "posting": "moderators", "topic": "RA updates and urgent floor notices" },
+        { "id": "events", "name": "events", "type": "public", "posting": "all", "topic": "Floor dinners and social plans" },
+        { "id": "ra-private", "name": "ra-private", "type": "private", "posting": "moderators", "topic": "Private RA coordination" }
+      ],
+      "members": [
+        { "id": "dorm-1", "name": "Jay", "role": "Owner", "status": "Active" },
+        { "id": "dorm-2", "name": "Mel", "role": "Moderator", "status": "Active" },
+        { "id": "dorm-3", "name": "Noah", "role": "Member", "status": "Active" },
+        { "id": "dorm-4", "name": "Mia", "role": "Member", "status": "Active" }
+      ],
+      "invites": [],
+      "messages": [
+        { "id": "d1", "channelId": "alerts", "author": "Jay", "time": "6:12 PM", "text": "Laundry room is flooded again. RA said use Floor 1 machines until maintenance clears it.", "tags": ["risk"], "important": true, "createdAt": "2026-05-27T01:12:00.000Z" },
+        { "id": "d2", "channelId": "alerts", "author": "Mel", "time": "6:28 PM", "text": "Quiet hours start at 10 PM tonight because finals week policy begins early.", "tags": ["deadline"], "important": true, "createdAt": "2026-05-27T01:28:00.000Z" },
+        { "id": "d3", "channelId": "events", "author": "Noah", "time": "7:03 PM", "text": "Pizza order is locked: two cheese, two pepperoni, one vegan. Venmo Mia by 8.", "tags": ["decision", "deadline"], "important": true, "createdAt": "2026-05-27T02:03:00.000Z" },
+        { "id": "d4", "channelId": "events", "author": "Mia", "time": "7:34 PM", "text": "Floor dinner is still 8:30 in the lounge. Bring your own drink.", "tags": ["deadline", "task"], "important": true, "createdAt": "2026-05-27T02:34:00.000Z" }
+      ]
+    }
+  ]
+}
