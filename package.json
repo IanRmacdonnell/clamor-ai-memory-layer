@@ -1,0 +1,20 @@
+{
+  "name": "clamor-community",
+  "version": "0.2.0",
+  "description": "Community messaging and memory product that turns chatter into clarity.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check app.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "community",
+    "messaging",
+    "ai",
+    "memory"
+  ],
+  "license": "MIT"
+}
