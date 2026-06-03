@@ -1,28 +1,50 @@
 # Clamor
 
-AI memory layer for student communities.
+**AI memory layer for student communities that turns noisy group chats into digests, action items, alerts, onboarding briefs, and source-backed Q&A.**
 
-Clamor is a full-stack product prototype for messy group chats. It keeps the lightweight feel of a GroupMe-style community, then adds structured memory: catch-up digests, action items, keyword alerts, source-backed Q&A, onboarding briefs, and community health signals.
+Clamor is a full-stack product prototype for messy group chats. It keeps the lightweight feel of a GroupMe-style community, then adds structured memory so clubs, student orgs, class groups, and hackathon teams can recover decisions, deadlines, tasks, and context without scrolling forever.
+
+## At a Glance
+
+| Area | Details |
+| --- | --- |
+| Project type | Full-stack AI product prototype |
+| Main objective | Turn fast-moving student community chats into useful memory |
+| Core features | Daily digest, source-backed Q&A, action extraction, keyword alerts, onboarding briefs, community health dashboard |
+| Tech stack | HTML, CSS, vanilla JavaScript, Node.js, JSON persistence |
+| AI approach | Local rule-based analyzer first, optional Groq backend calls for higher-value summaries and answers |
+| Best portfolio signal | Product thinking plus full-stack implementation of an AI-assisted workflow |
 
 ## Why I Built It
 
-Student organizations, clubs, class groups, and hackathon teams make decisions inside fast-moving chats, but the important parts disappear. Clamor explores a simple idea:
+Student organizations make real decisions inside casual chats, but the important parts disappear into scrollback. Clamor explores a simple product idea:
 
 > Communities do not only need more messages. They need memory.
 
-The product is framed around student/community groups because that is where existing tools often feel either too casual to preserve knowledge or too enterprise-heavy for everyday campus use.
+The project is framed around student/community groups because existing tools often feel either too casual to preserve knowledge or too enterprise-heavy for everyday campus use.
 
 ## What It Does
 
 - Turns chat history into a daily digest with decisions, blockers, tasks, and resources.
 - Answers questions over saved community messages with source cards.
 - Extracts action items and deadlines from conversation.
-- Watches for configured keywords and creates alerts.
+- Watches configured keywords and creates alerts.
 - Supports public, private, and moderator-only channels.
-- Provides role-aware posting and invite flows.
+- Provides role-aware posting, invites, and member management.
 - Includes a presenter/strategy page for explaining the market, cost model, and product wedge.
-- Works without an API key using a local rule-based analyzer.
+- Works without an API key using a local analyzer.
 - Can use Groq from the backend for higher-value AI calls when configured.
+
+## Skills Demonstrated
+
+- Full-stack product development with frontend state, backend routes, and local persistence.
+- AI product design for summaries, Q&A, alerts, onboarding, reports, and explainability.
+- RAG-style thinking through scoped retrieval, source-backed answers, and evidence cards.
+- UX/UI design for a student-community workflow inspired by chat tools without becoming enterprise-heavy.
+- Backend API design for messages, imports, invites, roles, reports, asks, overviews, and reset flows.
+- Data modeling for communities, channels, members, roles, invites, messages, actions, alerts, and metrics.
+- Product strategy: wedge, market positioning, judge objections, demo story, and AI cost model.
+- Cost-aware AI design by using local logic for lightweight analysis and reserving LLM calls for high-value tasks.
 
 ## Tech Stack
 
@@ -31,17 +53,6 @@ The product is framed around student/community groups because that is where exis
 - Data: JSON seed/store files for prototype persistence
 - AI architecture: local fallback analyzer plus optional Groq backend calls
 - Deployment: Render-ready `render.yaml`
-
-## Skills Demonstrated
-
-- Full-stack product development with client, server, routing, and local persistence.
-- AI product design for summaries, Q&A, alerts, onboarding, and reporting.
-- RAG-style thinking: source-backed answers, scoped retrieval, and evidence cards.
-- UX/UI design for a Slack/Discord-inspired but student-community-focused workflow.
-- Backend API design for messages, imports, invites, roles, reports, asks, and overviews.
-- Data modeling for communities, channels, members, roles, invites, messages, actions, alerts, and metrics.
-- Product strategy: defining a wedge, market positioning, judge objections, and demo storytelling.
-- Cost-aware AI design by using local logic for lightweight analysis and reserving LLM calls for high-value tasks.
 
 ## Project Structure
 
