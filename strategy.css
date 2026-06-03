@@ -90,7 +90,7 @@ li {
 .hero-grid,
 .story,
 .demo-flow,
-business-grid,
+.business-grid,
 .strategy-lanes {
   display: grid;
   gap: 14px;
