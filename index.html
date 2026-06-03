@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clamor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Communities">
+        <div class="brand">
+          <div class="brand-mark">C</div>
+          <div>
+            <h1>Clamor</h1>
+            <p>Communities remember.</p>
+          </div>
+        </div>
+
+        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse community sidebar" aria-expanded="true">
+          <span class="toggle-icon">&lt;</span>
+          <span class="toggle-text">Collapse</span>
+        </button>
+
+        <nav class="community-list" id="communityList" aria-label="Community list"></nav>
+
+        <section class="mini-panel">
+          <div class="mini-label">Signal</div>
+          <div class="signal-score" id="signalScore">82</div>
+          <div class="signal-bars" aria-hidden="true">
+            <span style="height: 46%"></span>
+            <span style="height: 64%"></span>
+            <span style="height: 78%"></span>
+            <span style="height: 52%"></span>
+            <span style="height: 88%"></span>
+          </div>
+        </section>
+      </aside>
+
+      <main class="workspace">
+        <div class="keyword-toast" id="keywordToast" role="status" aria-live="polite" hidden>
+          <strong>Keyword mention detected</strong>
+          <span id="keywordToastText">A message used the watched word.</span>
+        </div>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="platformLabel" hidden></p>
+            <h2 id="communityTitle">Mustang Product Club</h2>
+          </div>
+          <div class="topbar-actions">
+            <span class="ai-chip" id="aiProviderChip">Clamor Intelligence: Local</span>
+            <button class="notification-button" id="notificationButton" type="button" aria-expanded="false" aria-controls="notificationPanel">
+              Alerts <span id="notificationBadge">0</span>
+            </button>
+            <button class="secondary-button" id="presenterModeButton" type="button">Presenter</button>
+            <button class="primary-button" id="catchUpButton">Catch up</button>
+            <div class="topbar-menu">
+              <button class="topbar-menu-button" id="moreMenuButton" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="topbarMorePanel">More+</button>
+              <div id="topbarMorePanel" role="menu" hidden>
+                <button class="icon-button" id="dailyDigestButton" type="button" role="menuitem">Daily digest</button>
+                <button class="icon-button" id="refreshButton" type="button" role="menuitem" title="Refresh memory" aria-label="Refresh memory">Sync</button>
+                <a class="menu-link" href="strategy.html" target="_blank" rel="noreferrer" role="menuitem">Startup strategy</a>
+                <button class="secondary-button" id="resetButton" type="button" role="menuitem">Reset starter data</button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <section class="judge-proof-strip" aria-label="Competition proof points">
+          <article>
+            <span>Sleeping giant</span>
+            <strong>GroupMe captures chatter, not decisions.</strong>
+            <p>The demo starts with messy chat and shows the memory gap.</p>
+          </article>
+          <article>
+            <span>Core AI</span>
+            <strong>Digest + Ask turn scrollback into answers.</strong>
+            <p>Source cards prove the answer came from real messages.</p>
+          </article>
+          <article>
+            <span>Business</span>
+            <strong>Local first, paid AI second.</strong>
+            <p>Useful free features stay cheap; heavier AI becomes the upgrade.</p>
+          </article>
+        </section>
+        <section class="notification-panel" id="notificationPanel" hidden>
+          <div class="notification-head">
+            <h3>Alerts</h3>
+            <button id="clearNotificationsButton" type="button">Clear</button>
+          </div>
+          <div id="notificationList"></div>
+        </section>
+        <p class="status-line" id="statusLine" hidden>Connecting to Clamor server...</p>
+
+        <details class="insights-drawer">
+          <summary>At a glance</summary>
+          <section class="metrics-strip" aria-label="Community metrics">
+            <article>
+              <span id="actionCount">6</span>
+              <p>Actions</p>
+            </article>
+            <article>
+              <span id="messageCount">237</span>
+              <p>Messages</p>
+            </article>
+            <article>
+              <span id="deadlineCount">4</span>
+              <p>Deadlines</p>
+            </article>
+            <article>
+              <span id="decisionCount">3</span>
+              <p>Decisions</p>
+            </article>
+            <article>
+              <span id="riskCount">2</span>
+              <p>Risks</p>
+            </article>
+          </section>
+        </details>
+
+        <div class="content-grid">
+          <section class="chat-pane" aria-label="Community chat">
+            <div class="chat-layout">
+              <aside class="channel-rail" aria-label="Channels">
+                <div class="rail-head">
+                  <span>Channels</span>
+                  <small id="channelCount">4</small>
+                </div>
+                <div class="channel-list" id="channelList"></div>
+                <details class="channel-create">
+                  <summary>New channel</summary>
+                  <form class="channel-form" id="channelForm">
+                    <input name="channelName" type="text" placeholder="new-channel" aria-label="New channel name" />
+                    <div class="channel-form-row">
+                      <select name="channelType" aria-label="Channel type">
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                      </select>
+                      <select name="posting" aria-label="Posting permission">
+                        <option value="all">All</option>
+                        <option value="moderators">Mods</option>
+                      </select>
+                    </div>
+                    <button type="submit">Create channel</button>
+                  </form>
+                </details>
+              </aside>
+
+              <div class="chat-main">
+                <div class="section-head">
+                  <div>
+                    <h3 id="channelTitle"># general</h3>
+                    <p id="timeWindow">Main discussion and member questions</p>
+                    <div class="channel-meta">
+                      <span id="channelMemberCount">8 members</span>
+                      <button type="button" class="channel-member-button" data-view="members">Manage members</button>
+                    </div>
+                  </div>
+                  <div class="segmented-control" role="tablist" aria-label="Message filter">
+                    <button class="active" data-filter="all">All</button>
+                    <button data-filter="important">Signal</button>
+                    <button data-filter="questions">Questions</button>
+                  </div>
+                </div>
+                <details class="chat-search">
+                  <summary>Search this channel</summary>
+                  <div class="chat-tools">
+                    <input id="messageSearch" type="search" placeholder="Search this channel..." aria-label="Search messages" />
+                    <button id="clearSearchButton" type="button">Clear</button>
+                  </div>
+                </details>
+                <form class="compose-form" id="composeForm">
+                  <details class="sender-drawer">
+                    <summary>Send as</summary>
+                    <label class="sender-preview">
+                      <span>Send as</span>
+                      <select name="author" id="authorSelect" aria-label="Send as"></select>
+                    </label>
+                  </details>
+                  <input name="messageText" type="text" placeholder="Post a message into this channel..." aria-label="Message text" />
+                  <button type="submit">Send</button>
+                </form>
+                <div class="permission-note" id="permissionNote"></div>
+                <div class="message-list" id="messageList"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="memory-pane" aria-label="Clamor intelligence">
+            <div class="memory-toolbar">
+              <div>
+                <span class="toolbar-label">Intelligence</span>
+                <strong id="memoryActiveLabel">Digest</strong>
+              </div>
+              <button class="memory-collapse-button" id="memoryCollapseButton" type="button" aria-expanded="true" aria-controls="memoryPanelBody">
+                Hide
+              </button>
+            </div>
+            <div class="memory-panel-body" id="memoryPanelBody">
+              <div class="scope-row">
+              <span class="toolbar-label">Scope</span>
+              <div class="segmented-control scope-control" role="tablist" aria-label="AI memory scope">
+                <button data-scope="channel">This Channel</button>
+                <button class="active" data-scope="community">Whole Community</button>
+              </div>
+              </div>
+            </div>
+            <div class="memory-tabs" role="tablist" aria-label="Memory views">
+              <button data-view="actions">Actions</button>
+              <button class="active" data-view="digest">Digest</button>
+              <button data-view="catchup">Catch-up</button>
+              <button data-view="dashboard">Dashboard</button>
+              <button data-view="ask">Ask</button>
+              <button data-view="watch">Watch</button>
+              <button data-view="onboarding">Onboarding</button>
+            </div>
+            <div class="memory-utility-tabs" aria-label="Admin tools">
+              <button data-view="members">Members</button>
+              <button data-view="import">Import</button>
+            </div>
+
+            <div class="memory-view" id="catchupView">
+              <div class="section-head compact">
+                <div>
+                  <h3>Brief</h3>
+                  <p id="summaryUpdated">This channel</p>
+                </div>
+              </div>
+              <div id="summaryList" class="summary-list"></div>
+              <div class="source-tray">
+                <h4>Source Trail</h4>
+                <div id="sourceTrail"></div>
+              </div>
+            </div>
+
+            <div class="memory-view" id="dashboardView">
+              <div class="section-head compact">
+                <div>
+                  <h3>Community Health</h3>
+                  <p>Leadership view for presenters and moderators</p>
+                </div>
+              </div>
+              <div class="health-grid" id="healthGrid"></div>
+              <div class="impact-grid" id="impactGrid"></div>
+              <div class="source-tray">
+                <h4>Channel Activity</h4>
+                <div id="channelActivity"></div>
+              </div>
+              <div class="source-tray">
+                <h4>Presenter Checklist</h4>
+                <div id="presenterChecklist" class="checklist"></div>
+              </div>
+              <button class="wide-action" id="exportReportButton" type="button">Export presenter report</button>
+            </div>
+
+            <div class="memory-view" id="actionsView">
+              <div class="section-head compact">
+                <div>
+                  <h3>Actions</h3>
+                  <p>Owners, dates, and blockers</p>
+                </div>
+              </div>
+              <div id="actionList" class="action-list"></div>
+            </div>
+
+            <div class="memory-view active" id="digestView">
+              <div class="section-head compact">
+                <div>
+                  <h3>Daily Digest</h3>
+                  <p>Decisions, blockers, tasks, and resources from today.</p>
+                </div>
+              </div>
+              <div class="digest-hero" id="digestHero"></div>
+              <div class="digest-grid" id="digestGrid"></div>
+              <div class="source-tray">
+                <h4>What changed timeline</h4>
+                <div id="timelineList"></div>
+              </div>
+            </div>
+
+            <div class="memory-view" id="onboardingView">
+              <div class="section-head compact">
+                <div>
+                  <h3>New Member Brief</h3>
+                  <p>Built from recent context</p>
+                </div>
+              </div>
+              <div id="onboardingBrief" class="brief"></div>
+            </div>
+
+            <div class="memory-view" id="askView">
+              <div class="ask-box">
+                <label for="questionInput">Ask Clamor</label>
+                <div class="ask-row">
+                  <input id="questionInput" type="text" value="When is the next meeting and what should I prepare?" />
+                  <button id="askButton">Ask</button>
+                </div>
+              </div>
+              <div class="answer-box" id="answerBox"></div>
+              <div class="quick-prompts">
+                <button data-question="What changed since the last update?">What changed?</button>
+                <button data-question="What decisions were made about funding?">Funding decision</button>
+                <button data-question="What links did people share?">Shared links</button>
+                <button data-question="What is blocking the team?">Blockers</button>
+                <button data-question="Who has action items?">Owners</button>
+              </div>
+            </div>
+
+            <div class="memory-view" id="watchView">
+              <div class="section-head compact">
+                <div>
+                  <h3>Watchlist</h3>
+                  <p>Track important terms across the community.</p>
+                </div>
+              </div>
+              <form class="watch-form" id="keywordForm">
+                <input id="keywordInput" name="keyword" type="text" placeholder="sponsorship, room change, refund..." aria-label="Keyword to watch" />
+                <button type="submit">Watch keyword</button>
+              </form>
+              <div class="watch-suggestions" aria-label="Suggested keywords">
+                <button type="button" data-watch-suggestion="deadline">deadline</button>
+                <button type="button" data-watch-suggestion="funding">funding</button>
+                <button type="button" data-watch-suggestion="room">room</button>
+                <button type="button" data-watch-suggestion="blocker">blocker</button>
+                <button type="button" data-watch-suggestion="sponsor">sponsor</button>
+              </div>
+              <div class="watch-panel">
+                <div>
+                  <h4>Active Watchlist</h4>
+                  <div class="watch-chip-list" id="keywordWatchList"></div>
+                </div>
+                <div>
+                  <h4>Current Matches</h4>
+                  <div class="watch-match-list" id="keywordMatchList"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="memory-view" id="membersView">
+              <div class="section-head compact">
+                <div>
+                  <h3>Participants</h3>
+                  <p>Admin permissions, invites, and role previews</p>
+                </div>
+              </div>
+              <form class="invite-form" id="inviteForm">
+                <input name="email" type="email" placeholder="teammate@school.edu" aria-label="Participant email" />
+                <select name="role" aria-label="Participant role">
+                  <option>Member</option>
+                  <option>Moderator</option>
+                  <option>Owner</option>
+                </select>
+                <button type="submit">Invite</button>
+              </form>
+              <div class="member-grid" id="memberGrid"></div>
+              <div class="source-tray">
+                <h4>Pending Invites</h4>
+                <div id="inviteList"></div>
+              </div>
+            </div>
+
+            <div class="memory-view" id="importView">
+              <div class="section-head compact">
+                <div>
+                  <h3>Import</h3>
+                  <p>Paste lines like: Maya: Meeting moved to Baker 114</p>
+                </div>
+              </div>
+              <form class="import-form" id="importForm">
+                <textarea name="rawText" aria-label="Chat log import" placeholder="Maya: Thursday panel moved to Baker 114&#10;Leo: Can someone update the flyer by 2 PM?&#10;Nina: Final decision was pizza and drinks."></textarea>
+                <button type="submit">Import and analyze</button>
+              </form>
+            </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <section class="presenter-panel" id="presenterPanel" hidden aria-label="Presenter mode">
+      <div class="presenter-shell">
+        <div class="presenter-head">
+          <div>
+            <span>Presenter Mode</span>
+            <h2>Clamor turns student group chats into source-backed operational memory.</h2>
+          </div>
+          <button id="closePresenterButton" type="button">Close</button>
+        </div>
+        <div class="presenter-grid">
+          <article>
+            <span>Sleeping Giant</span>
+            <h3>GroupMe is chat without memory</h3>
+            <p>Student groups coordinate there, but decisions, deadlines, files, and tasks disappear into scrollback.</p>
+          </article>
+          <article>
+            <span>After</span>
+            <h3>AI becomes the memory layer</h3>
+            <p>Digest, Ask, Actions, and Dashboard convert scrollback into decisions, owners, blockers, and proof.</p>
+          </article>
+          <article>
+            <span>Vision</span>
+            <h3>Start narrow, expand later</h3>
+            <p>Win campus GroupMe-style communities first, then connect the other tools those communities already use.</p>
+          </article>
+          <article>
+            <span>Business</span>
+            <h3>Local first, paid AI second</h3>
+            <p>Most alerts and stats run locally. Heavier AI answers, reports, imports, and cross-platform memory become paid upgrades.</p>
+          </article>
+        </div>
+        <div class="presenter-metrics" id="presenterMetrics"></div>
+        <div class="presenter-script">
+          <h3>Demo Script</h3>
+          <ol>
+            <li>Show the busy chat and channel structure.</li>
+            <li>Say: "GroupMe makes you scroll. Clamor gives memory."</li>
+            <li>Open Digest to reduce noisy messages into decisions, blockers, and tasks.</li>
+            <li>Ask Clamor: "What decisions were made about funding?"</li>
+            <li>Point to source cards to prove trust and explainability.</li>
+            <li>Open Dashboard to show saved time, signal rate, and low AI cost.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <script src="app.js"></script>
+  </body>
+</html>
