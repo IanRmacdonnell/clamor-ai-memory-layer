@@ -15,6 +15,18 @@ Clamor is a full-stack product prototype for messy group chats. It keeps the lig
 | AI approach | Local rule-based analyzer first, optional Groq backend calls for higher-value summaries and answers |
 | Best portfolio signal | Product thinking plus full-stack implementation of an AI-assisted workflow |
 
+## About / Examples
+
+Clamor is built around realistic student-community problems where important information gets buried in chat.
+
+Example situations it handles:
+
+- A club officer asks, `What decisions were made about funding?` and gets an answer backed by source messages.
+- A new member joins late and uses the onboarding brief to understand recent decisions, deadlines, and context.
+- A moderator watches keywords like `sponsor`, `room`, or `deadline` and gets alerted when they appear.
+- A team imports messy chat lines and turns them into actions, blockers, deadlines, and shared resources.
+- A presenter opens the strategy view to explain the product wedge, market, AI cost model, and demo story.
+
 ## Why I Built It
 
 Student organizations make real decisions inside casual chats, but the important parts disappear into scrollback. Clamor explores a simple product idea:
