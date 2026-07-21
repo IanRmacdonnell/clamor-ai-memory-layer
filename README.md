@@ -1,5 +1,8 @@
 # Clamor
 
+[![CI](https://github.com/IanRmacdonnell/clamor-ai-memory-layer/actions/workflows/ci.yml/badge.svg)](https://github.com/IanRmacdonnell/clamor-ai-memory-layer/actions/workflows/ci.yml)
+[![Case study](https://img.shields.io/badge/live-case_study-7565f5)](https://ianrmacdonnell.github.io/clamor-ai-memory-layer/)
+
 **AI memory layer for student communities that turns noisy group chats into digests, action items, alerts, onboarding briefs, and source-backed Q&A.**
 
 Clamor is a full-stack product prototype for messy group chats. It keeps the lightweight feel of a GroupMe-style community, then adds structured memory so clubs, student orgs, class groups, and hackathon teams can recover decisions, deadlines, tasks, and context without scrolling forever.
@@ -151,3 +154,5 @@ Health check path: /api/health
 ```
 
 For a production version, replace JSON storage with Supabase or Postgres so hosted data persists across server restarts.
+
+The static [portfolio case study](https://ianrmacdonnell.github.io/clamor-ai-memory-layer/) is deployed through GitHub Pages. The full application remains Render-ready because its API and persistence layer require a Node runtime.

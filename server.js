@@ -1002,8 +1002,19 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-ensureStore().then(() => {
-  server.listen(PORT, () => {
-    console.log(`Clamor running at http://localhost:${PORT}`);
+if (require.main === module) {
+  ensureStore().then(() => {
+    server.listen(PORT, () => {
+      console.log(`Clamor running at http://localhost:${PORT}`);
+    });
   });
-});
+}
+
+module.exports = {
+  analyzeCommunity,
+  answerQuestion,
+  buildDailyDigest,
+  metricCounts,
+  parseImportedMessages,
+  tagMessage,
+};
