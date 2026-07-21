@@ -1,0 +1,19 @@
+{
+  "name": "Clamor trusted-answer baseline v1",
+  "community": {
+    "id": "eval-community",
+    "name": "Evaluation Workspace",
+    "channels": [{ "id": "general", "name": "general", "type": "public", "posting": "all" }],
+    "members": [{ "id": "eval-owner", "name": "Maya", "role": "Owner", "status": "Active" }],
+    "messages": [
+      { "id": "eval-m1", "channelId": "general", "author": "Maya", "text": "Final decision: the sponsor budget is approved at $450.", "tags": ["decision"], "important": true, "createdAt": "2026-07-20T16:00:00.000Z" },
+      { "id": "eval-m2", "channelId": "general", "author": "Leo", "text": "Slides are due Friday at 5:00 PM.", "tags": ["deadline", "task"], "important": true, "createdAt": "2026-07-20T17:00:00.000Z" },
+      { "id": "eval-m3", "channelId": "general", "author": "Nia", "text": "The room booking is blocked until facilities responds.", "tags": ["risk"], "important": true, "createdAt": "2026-07-20T18:00:00.000Z" }
+    ]
+  },
+  "cases": [
+    { "id": "budget-decision", "question": "What decision was made about the budget?", "expectedSourceIds": ["eval-m1"], "requiredTerms": ["approved", "450"], "shouldAbstain": false },
+    { "id": "slide-deadline", "question": "When are the slides due?", "expectedSourceIds": ["eval-m2"], "requiredTerms": ["Friday", "5:00"], "shouldAbstain": false },
+    { "id": "unknown-cafeteria", "question": "What is on the cafeteria menu tomorrow?", "expectedSourceIds": [], "requiredTerms": [], "shouldAbstain": true }
+  ]
+}

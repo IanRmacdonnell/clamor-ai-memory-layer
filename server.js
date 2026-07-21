@@ -2,6 +2,7 @@ const http = require("http");
 const fs = require("fs/promises");
 const path = require("path");
 const { randomUUID } = require("crypto");
+const TRUST_BASELINE = require("./evals/datasets/trust-baseline.json");
 
 const PORT = Number(process.env.PORT || process.argv[2] || 5173);
 const ROOT = path.resolve(__dirname);
@@ -350,7 +351,7 @@ function expandQuestionTokens(questionText) {
   if (/(funding|budget|money|cost|approved|asi)/.test(lower)) expansions.push("budget", "approved", "asi", "funding", "money", "$");
   if (/(meeting|event|prepare|bring|when)/.test(lower)) expansions.push("meeting", "panel", "prep", "prepare", "bring", "starts", "doors");
   if (/(link|doc|drive|file|resource)/.test(lower)) expansions.push("drive", "link", "http", "file", "resource");
-  if (/(block|risk|stuck|issue)/.test(lower)) expansions.push("risk", "stuck", "missing", "need", "limit", "problem");
+  if (/(block|risk|stuck|issue)/.test(lower)) expansions.push("risk", "block", "stuck", "missing", "need", "limit", "problem");
   return [...new Set([...tokens, ...expansions])];
 }
 
@@ -384,12 +385,14 @@ function scoreMessageForQuestion(message, tokens, intents, index) {
 function pickEvidence(messages, questionText) {
   const tokens = expandQuestionTokens(questionText);
   const intents = detectQuestionIntent(questionText);
+  const allowBroadFallback = intents.includes("onboarding") || /\b(summary|recap|latest|important|what happened|catch up)\b/i.test(questionText);
   const scored = messages
     .map((message, index) => ({
       message,
       score: scoreMessageForQuestion(message, tokens, intents, index),
+      tokenMatch: tokens.some((token) => message.text.toLowerCase().includes(token)),
     }))
-    .filter((item) => item.score > 1)
+    .filter((item) => item.score > 1 && (item.tokenMatch || allowBroadFallback))
     .sort((a, b) => b.score - a.score || messageTimeValue(b.message) - messageTimeValue(a.message));
 
   const evidence = [];
@@ -402,6 +405,7 @@ function pickEvidence(messages, questionText) {
   }
 
   if (!evidence.length) {
+    if (!allowBroadFallback) return [];
     return messages
       .filter(isImportant)
       .sort((a, b) => messageTimeValue(b) - messageTimeValue(a))
@@ -861,6 +865,11 @@ async function handleApi(req, res, url) {
     return jsonResponse(res, 200, { ok: true, name: "Clamor", ai: aiStatus() });
   }
 
+  if (req.method === "GET" && url.pathname === "/api/evaluation") {
+    const { runEvaluationSuite } = require("./evaluation.js");
+    return jsonResponse(res, 200, runEvaluationSuite(TRUST_BASELINE, answerQuestion));
+  }
+
   const store = normalizeStore(await readStore());
 
   if (req.method === "GET" && url.pathname === "/api/state") {
@@ -1016,6 +1025,7 @@ module.exports = {
   buildDailyDigest,
   metricCounts,
   parseImportedMessages,
+  pickEvidence,
   server,
   tagMessage,
 };
