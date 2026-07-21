@@ -1,6 +1,6 @@
 {
   "name": "clamor-community",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Community messaging and memory product that turns chatter into clarity.",
   "main": "server.js",
   "scripts": {
