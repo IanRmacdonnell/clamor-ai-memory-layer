@@ -1016,5 +1016,6 @@ module.exports = {
   buildDailyDigest,
   metricCounts,
   parseImportedMessages,
+  server,
   tagMessage,
 };

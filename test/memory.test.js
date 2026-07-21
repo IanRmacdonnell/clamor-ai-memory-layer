@@ -5,6 +5,7 @@ const {
   answerQuestion,
   buildDailyDigest,
   parseImportedMessages,
+  server,
   tagMessage,
 } = require("../server.js");
 
@@ -48,4 +49,17 @@ test("analyzes a community into actionable memory", () => {
   const analysis = analyzeCommunity(community);
   assert.ok(analysis.summaries.length > 0);
   assert.ok(analysis.metrics.decisions >= 1);
+});
+
+test("serves a healthy API over HTTP", async () => {
+  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+  const address = server.address();
+  try {
+    const response = await fetch(`http://127.0.0.1:${address.port}/api/health`);
+    assert.equal(response.status, 200);
+    const health = await response.json();
+    assert.equal(health.ok, true);
+  } finally {
+    await new Promise((resolve) => server.close(resolve));
+  }
 });
