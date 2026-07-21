@@ -8,6 +8,9 @@ const {
   server,
   tagMessage,
 } = require("../server.js");
+const { runEvaluationSuite } = require("../evaluation.js");
+const { can, visibleMessages, workspaceModel } = require("../workspace.js");
+const trustBaseline = require("../evals/datasets/trust-baseline.json");
 
 const community = {
   id: "builders",
@@ -51,6 +54,32 @@ test("analyzes a community into actionable memory", () => {
   assert.ok(analysis.metrics.decisions >= 1);
 });
 
+test("abstains when saved history does not support an answer", () => {
+  const answer = answerQuestion(community, "What is on the cafeteria menu tomorrow?");
+  assert.deepEqual(answer.sources, []);
+  assert.match(answer.answer, /could not find enough/i);
+});
+
+test("evaluates citation quality and unsupported answers", () => {
+  const report = runEvaluationSuite(trustBaseline, answerQuestion);
+  assert.equal(report.cases, 3);
+  assert.equal(report.unsupportedAnswerRate, 0);
+  assert.equal(report.passRate, 1);
+});
+
+test("models workspace roles and protects private-channel messages", () => {
+  const privateCommunity = {
+    ...community,
+    channels: [...community.channels, { id: "leadership", name: "leadership", type: "private" }],
+    members: [{ id: "owner", name: "Maya", role: "Owner", status: "Active" }, { id: "member", name: "Leo", role: "Member", status: "Active" }],
+    messages: [...community.messages, { id: "private-1", channelId: "leadership", author: "Maya", text: "Private budget", tags: ["decision"] }],
+  };
+  assert.equal(workspaceModel(privateCommunity).memberships.length, 2);
+  assert.equal(can(privateCommunity.members[1], "messages.read_private"), false);
+  assert.equal(visibleMessages(privateCommunity, privateCommunity.members[1]).some((message) => message.id === "private-1"), false);
+  assert.equal(visibleMessages(privateCommunity, privateCommunity.members[0]).some((message) => message.id === "private-1"), true);
+});
+
 test("serves a healthy API over HTTP", async () => {
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
   const address = server.address();
@@ -59,6 +88,11 @@ test("serves a healthy API over HTTP", async () => {
     assert.equal(response.status, 200);
     const health = await response.json();
     assert.equal(health.ok, true);
+    const evaluationResponse = await fetch(`http://127.0.0.1:${address.port}/api/evaluation`);
+    assert.equal(evaluationResponse.status, 200);
+    const evaluation = await evaluationResponse.json();
+    assert.equal(evaluation.passRate, 1);
+    assert.equal(evaluation.unsupportedAnswerRate, 0);
   } finally {
     await new Promise((resolve) => server.close(resolve));
   }

@@ -126,6 +126,18 @@ The API key stays on the backend. If Groq is not configured or fails, the app fa
 6. Open Members to show invites and role-aware permissions.
 7. Open `strategy.html` to explain the GroupMe wedge, Slack comparison, privacy, and AI cost strategy.
 
+## Trust evaluation
+
+Clamor includes a repeatable trusted-answer baseline covering supported decisions, deadlines, and a question that must be refused because the workspace contains no evidence.
+
+```bash
+npm run eval
+```
+
+The report measures citation precision and recall, required answer coverage, abstention accuracy, and unsupported-answer rate. The local workspace model also defines Owner, Moderator, Member, and Guest permissions and prevents ordinary members from reading private-channel messages.
+
+The implementation sequence is documented in [docs/trust-roadmap.md](docs/trust-roadmap.md).
+
 ## What I Would Highlight
 
 Resume version:

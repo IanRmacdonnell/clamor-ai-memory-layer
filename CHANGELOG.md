@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased — Trusted-memory foundation
+
+- Added a trusted-answer evaluation dataset and evaluation command.
+- Added correct abstention for questions unsupported by saved history.
+- Added workspace roles, permissions, and private-channel visibility rules.
+- Added a local evaluation API and expanded automated coverage.
+
 ## 0.3.0 — Portfolio release
 
 - Added source-backed memory, digest, import, and analysis unit tests.
