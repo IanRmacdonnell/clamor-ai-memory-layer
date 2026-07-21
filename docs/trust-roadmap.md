@@ -10,7 +10,7 @@
 
 ## Next implementation slice
 
-1. Expand the baseline to 30–50 labeled questions covering contradictions, superseded decisions, ambiguous owners, and permission boundaries.
+1. Grow the current 36-case baseline with multi-message contradictions, superseded decisions, and human-labeled relevance judgments.
 2. Separate workspace, message, retrieval, answer, citation, and evaluation-run persistence.
 3. Add authenticated memberships and permission-aware retrieval before adding external connectors.
 4. Move ingestion and summarization into retryable background jobs.
@@ -20,7 +20,7 @@
 ## After the backend
 
 - deletion and permission changes propagate into the retrieval index;
-- prompt-injection and hostile-message cases enter the evaluation suite;
+- continue expanding the prompt-injection and hostile-message cases now included in the evaluation suite;
 - production errors, job failures, latency, and model cost become observable;
 - one consenting community pilots digests, action items, onboarding, and cited Q&A;
 - human feedback is joined to answer and citation records for later evaluation.

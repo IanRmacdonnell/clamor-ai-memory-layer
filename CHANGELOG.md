@@ -6,6 +6,9 @@
 - Added correct abstention for questions unsupported by saved history.
 - Added workspace roles, permissions, and private-channel visibility rules.
 - Added a local evaluation API and expanded automated coverage.
+- Expanded the trust suite to 36 supported, unknown, permission-sensitive, and adversarial questions.
+- Enforced private-channel filtering before local retrieval and external provider calls.
+- Added regression coverage proving members cannot retrieve leadership evidence.
 
 ## 0.3.0 — Portfolio release
 

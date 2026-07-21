@@ -3,6 +3,7 @@ const fs = require("fs/promises");
 const path = require("path");
 const { randomUUID } = require("crypto");
 const TRUST_BASELINE = require("./evals/datasets/trust-baseline.json");
+const { visibleMessages } = require("./workspace.js");
 
 const PORT = Number(process.env.PORT || process.argv[2] || 5173);
 const ROOT = path.resolve(__dirname);
@@ -314,6 +315,7 @@ const STOP_WORDS = new Set([
   "to",
   "was",
   "were",
+  "will",
   "what",
   "when",
   "where",
@@ -384,6 +386,7 @@ function scoreMessageForQuestion(message, tokens, intents, index) {
 
 function pickEvidence(messages, questionText) {
   const tokens = expandQuestionTokens(questionText);
+  const sensitiveTokens = tokenize(questionText).filter((token) => /^(private|secret|payroll|leadership|password|credential)/.test(token));
   const intents = detectQuestionIntent(questionText);
   const allowBroadFallback = intents.includes("onboarding") || /\b(summary|recap|latest|important|what happened|catch up)\b/i.test(questionText);
   const scored = messages
@@ -391,8 +394,9 @@ function pickEvidence(messages, questionText) {
       message,
       score: scoreMessageForQuestion(message, tokens, intents, index),
       tokenMatch: tokens.some((token) => message.text.toLowerCase().includes(token)),
+      sensitiveMatch: !sensitiveTokens.length || sensitiveTokens.some((token) => message.text.toLowerCase().includes(token)),
     }))
-    .filter((item) => item.score > 1 && (item.tokenMatch || allowBroadFallback))
+    .filter((item) => item.score > 1 && item.sensitiveMatch && (item.tokenMatch || allowBroadFallback))
     .sort((a, b) => b.score - a.score || messageTimeValue(b.message) - messageTimeValue(a.message));
 
   const evidence = [];
@@ -510,9 +514,12 @@ function narrowEvidenceToIntent(evidence, questionText) {
 }
 
 function answerQuestion(community, question) {
+  const requesterName = typeof question === "object" ? question.requesterName : null;
+  const requester = requesterName ? community.members?.find((member) => member.name === requesterName) : null;
+  const authorizedCommunity = requester ? { ...community, messages: visibleMessages(community, requester) } : community;
   const channelId = question.channelId || null;
   const questionText = typeof question === "string" ? question : question.text;
-  const messages = messagesForScope(community, question.scope || "channel", channelId)
+  const messages = messagesForScope(authorizedCommunity, question.scope || "channel", channelId)
     .filter((message) => !isNoiseMessage(message))
     .map((message) => ({
       ...message,
@@ -528,7 +535,7 @@ function answerQuestion(community, question) {
     );
     if (focusedMeetingEvidence.length) focusedEvidence = focusedMeetingEvidence;
   }
-  const answer = synthesizeLocalAnswer(community, questionText, focusedEvidence);
+  const answer = synthesizeLocalAnswer(authorizedCommunity, questionText, focusedEvidence);
 
   return {
     question: questionText,
@@ -594,24 +601,26 @@ async function callGroq(messages, questionText, scopeLabel) {
 }
 
 async function answerWithProvider(community, body) {
+  const requester = body.requesterName ? community.members?.find((member) => member.name === body.requesterName) : null;
+  const authorizedCommunity = requester ? { ...community, messages: visibleMessages(community, requester) } : community;
   const scope = body.scope || (body.channelId ? "channel" : "community");
-  const messages = messagesForScope(community, scope, body.channelId);
-  const channel = body.channelId ? getChannel(community, body.channelId) : null;
-  const scopeLabel = scope === "community" ? community.name : `${community.name} / ${channel?.name || "channel"}`;
+  const messages = messagesForScope(authorizedCommunity, scope, body.channelId);
+  const channel = body.channelId ? getChannel(authorizedCommunity, body.channelId) : null;
+  const scopeLabel = scope === "community" ? authorizedCommunity.name : `${authorizedCommunity.name} / ${channel?.name || "channel"}`;
 
   try {
     const aiAnswer = await callGroq(messages, body.question, scopeLabel);
     if (aiAnswer) return aiAnswer;
   } catch (error) {
     return {
-      ...answerQuestion(community, { text: body.question, channelId: body.channelId, scope }),
+      ...answerQuestion(authorizedCommunity, { text: body.question, channelId: body.channelId, scope, requesterName: body.requesterName }),
       provider: "local fallback",
       confidence: "Groq unavailable",
       warning: error.message,
     };
   }
 
-  return answerQuestion(community, { text: body.question, channelId: body.channelId, scope });
+  return answerQuestion(authorizedCommunity, { text: body.question, channelId: body.channelId, scope, requesterName: body.requesterName });
 }
 
 function colorForType(type) {

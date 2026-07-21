@@ -24,7 +24,11 @@ function evaluateCase(testCase, result) {
 }
 
 function runEvaluationSuite(suite, answerer) {
-  const results = suite.cases.map((testCase) => evaluateCase(testCase, answerer(suite.community, testCase.question)));
+  const results = suite.cases.map((testCase) => evaluateCase(testCase, answerer(suite.community, {
+    text: testCase.question,
+    scope: testCase.scope || "community",
+    requesterName: testCase.requesterName || null,
+  })));
   const average = (key) => Number((results.reduce((sum, item) => sum + Number(item[key]), 0) / Math.max(1, results.length)).toFixed(3));
   const passed = results.filter((item) => item.citationRecall === 1 && item.requiredTermCoverage === 1 && item.abstentionCorrect).length;
   return {
