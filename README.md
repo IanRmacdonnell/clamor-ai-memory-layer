@@ -136,6 +136,8 @@ npm run eval
 
 The report measures citation precision and recall, required answer coverage, abstention accuracy, and unsupported-answer rate. The local workspace model also defines Owner, Moderator, Member, and Guest permissions and prevents ordinary members from reading private-channel messages.
 
+The v2 baseline contains 36 direct, unknown, permission-sensitive, and adversarial questions. Permission filtering is applied before both local retrieval and optional provider calls, so hidden messages are not merely removed from the interface—they are excluded from model context.
+
 The implementation sequence is documented in [docs/trust-roadmap.md](docs/trust-roadmap.md).
 
 ## What I Would Highlight

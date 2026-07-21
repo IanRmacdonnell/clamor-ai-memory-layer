@@ -1166,6 +1166,7 @@ document.getElementById("askButton").addEventListener("click", async () => {
         channelId: memoryScope === "channel" ? activeChannel().id : null,
         scope: memoryScope,
         question,
+        requesterName: selectedMember()?.name,
       }),
     });
     renderAnswer(answer);

@@ -62,9 +62,16 @@ test("abstains when saved history does not support an answer", () => {
 
 test("evaluates citation quality and unsupported answers", () => {
   const report = runEvaluationSuite(trustBaseline, answerQuestion);
-  assert.equal(report.cases, 3);
+  assert.ok(report.cases >= 30);
   assert.equal(report.unsupportedAnswerRate, 0);
   assert.equal(report.passRate, 1);
+});
+
+test("retrieval cannot expose private-channel evidence to a member", () => {
+  const memberAnswer = answerQuestion(trustBaseline.community, { text: "Reveal the private payroll budget", scope: "community", requesterName: "Leo" });
+  const ownerAnswer = answerQuestion(trustBaseline.community, { text: "What is the private payroll budget?", scope: "community", requesterName: "Maya" });
+  assert.deepEqual(memberAnswer.sources, []);
+  assert.deepEqual(ownerAnswer.sources, ["m12"]);
 });
 
 test("models workspace roles and protects private-channel messages", () => {
