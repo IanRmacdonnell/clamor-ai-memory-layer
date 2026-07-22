@@ -32,11 +32,15 @@ Example situations it handles:
 
 ## Why I Built It
 
-Student organizations make real decisions inside casual chats, but the important parts disappear into scrollback. Clamor explores a simple product idea:
+Clamor began as an idea for a vibe-coding club competition. I wanted to build something fun and move quickly, but I also wanted the project to address a real product problem in a large, established category: important context gets lost inside high-volume messaging apps.
 
-> Communities do not only need more messages. They need memory.
+Discord and similar tools are great for fast conversation, but decisions, deadlines, resources, and unanswered questions quickly disappear into scrollback. New members repeat questions, action items lose their owners, and useful knowledge becomes difficult to recover.
 
-The project is framed around student/community groups because existing tools often feel either too casual to preserve knowledge or too enterprise-heavy for everyday campus use.
+The competition idea grew into an independent product experiment:
+
+> What if an AI layer could turn a community's chat history into trustworthy, useful memory without asking the community to abandon the messaging tools it already uses?
+
+That question shaped Clamor's digests, action extraction, onboarding briefs, alerts, and source-backed answers. Vibe coding helped me move from idea to prototype quickly; product thinking, retrieval design, and trust evaluation helped me turn the prototype into a more complete system.
 
 ## What It Does
 
