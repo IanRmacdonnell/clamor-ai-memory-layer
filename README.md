@@ -5,6 +5,10 @@
 
 **AI memory layer for student communities that turns noisy group chats into digests, action items, alerts, onboarding briefs, and source-backed Q&A.**
 
+![Clamor dashboard](docs/assets/clamor-dashboard.png)
+
+[Live case study](https://ianrmacdonnell.github.io/clamor-ai-memory-layer/) · [Product strategy](https://ianrmacdonnell.github.io/clamor-ai-memory-layer/strategy.html) · [60–90 second demo guide](docs/demo-guide.md)
+
 Clamor is a full-stack product prototype for messy group chats. It keeps the lightweight feel of a GroupMe-style community, then adds structured memory so clubs, student orgs, class groups, and hackathon teams can recover decisions, deadlines, tasks, and context without scrolling forever.
 
 ## At a Glance
@@ -17,6 +21,20 @@ Clamor is a full-stack product prototype for messy group chats. It keeps the lig
 | Tech stack | HTML, CSS, vanilla JavaScript, Node.js, JSON persistence |
 | AI approach | Local rule-based analyzer first, optional Groq backend calls for higher-value summaries and answers |
 | Best portfolio signal | Product thinking plus full-stack implementation of an AI-assisted workflow |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    UI["Community chat UI"] --> API["Node.js API"]
+    API --> Store["Workspace and JSON persistence"]
+    API --> Retrieval["Permission-filtered retrieval"]
+    Retrieval --> Local["Local analyzer"]
+    Retrieval --> Provider["Optional Groq provider"]
+    Local --> Answers["Digests, actions, alerts, and cited answers"]
+    Provider --> Answers
+    Eval["Trust evaluation suite"] --> Retrieval
+```
 
 ## About / Examples
 
@@ -32,7 +50,7 @@ Example situations it handles:
 
 ## Why I Built It
 
-Clamor began as an idea for a vibe-coding club competition. I wanted to build something fun and move quickly, but I also wanted the project to address a real product problem in a large, established category: important context gets lost inside high-volume messaging apps.
+Clamor began as a rapid-prototyping club competition idea. I wanted to build something fun and move quickly, but I also wanted the project to address a real product problem in a large, established category: important context gets lost inside high-volume messaging apps.
 
 Discord and similar tools are great for fast conversation, but decisions, deadlines, resources, and unanswered questions quickly disappear into scrollback. New members repeat questions, action items lose their owners, and useful knowledge becomes difficult to recover.
 
